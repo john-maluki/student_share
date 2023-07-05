@@ -398,5 +398,37 @@
         <input class="modal__input" type="submit" value="Share Video" />
       </form>
     </section>
+    <section id="share-topic-form-modal" class="modal">
+      <div id="modal__close" class="modal__close" title="close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <form id="modal__form" class="modal__form" action="#">
+        <label for="modal__username">Username:</label>
+        <input
+          class="modal__input"
+          id="modal__username"
+          type="text"
+          placeholder="username"
+          required
+        />
+        <label for="modal__topic-name">Write about:</label>
+        <input
+          class="modal__input"
+          id="modal__topic-name"
+          type="text"
+          placeholder="topic title"
+          required
+        />
+        <label for="modal__topic-name">Description:</label>
+        <input
+          class="modal__input"
+          id="modal__video-name"
+          type="text"
+          placeholder="topic description"
+          required
+        />
+        <input class="modal__input" type="submit" value="Share Topic" />
+      </form>
+    </section>
   </body>
 </html>
