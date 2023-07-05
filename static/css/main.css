@@ -1,1 +1,241 @@
 @import url("./global.css");
+
+/* main */
+.main {
+  width: 100%;
+  display: flex;
+}
+
+/* image profile */
+.img-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0.5px solid grey;
+}
+
+.main__logo {
+  margin: 20px;
+  font-size: 20px;
+}
+
+.main__logo span {
+  color: #1d9bf0;
+}
+
+.main__nav {
+  border-bottom: 1px solid #eff3f4;
+  height: 65vh;
+}
+
+.main__items {
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+.main__item {
+  margin-bottom: 15px;
+}
+
+.main_link {
+  width: 90px;
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+/* .main__profile {
+  display: inline-block;
+} */
+
+.main__profile-name {
+  font-size: 17px;
+}
+
+.main__profile-handle {
+  margin-top: 3px;
+  font-size: 15px;
+  opacity: 0.7;
+  letter-spacing: 2px;
+}
+
+.container-card__header {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid #eff3f4;
+}
+
+.container-card__page {
+  color: #0f1419;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.container-card__tabs {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+}
+
+.container-card__tabs h4 {
+  width: 50%;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: #303439;
+}
+
+.container-card__tabs h4:hover {
+  background-color: #ebebeb;
+}
+
+.main__search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+}
+
+.main__user-search {
+  width: 80%;
+  height: 50px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #eff3f4;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.main__user-search input {
+  width: 80%;
+  background-color: #eff3f4;
+  border: none;
+  outline: none;
+  font-size: 17px;
+}
+
+.main__share {
+  width: 100%;
+  height: 124px;
+  margin-top: 20px;
+}
+
+.main__share-inner-box {
+  margin: 0 auto;
+  width: 80%;
+  height: 100%;
+  padding: 10px 10px;
+  background-color: #f7f9f9;
+}
+
+.main__share-inner-box p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+.main__share-button {
+  width: 120px;
+  height: 36px;
+  border-radius: 36px;
+  border: none;
+  background-color: #0f1419;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* User card */
+.user-card__header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.user-card__details {
+  width: 90%;
+}
+
+.user-card__handle {
+  font-size: 15px;
+}
+
+.user-card__description {
+  margin-bottom: 15px;
+  font-family: "Patrick Hand";
+  font-size: 20px;
+  text-align: justify;
+}
+
+.user-card__img {
+  width: 100%;
+}
+
+@media (min-width: 43.75em) {
+  .main {
+    display: flex;
+  }
+
+  .container-card__header {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 1000;
+  }
+
+  .main__content-pane {
+    width: calc(100% - 670px);
+  }
+
+  .main__left-pane {
+    position: sticky;
+    top: 0;
+    width: 270px;
+    border-right: 1px solid #eff3f4;
+    height: 100vh;
+  }
+
+  .main__right-pane {
+    position: sticky;
+    top: 0;
+    width: 400px;
+    border-left: 1px solid #eff3f4;
+    height: 100vh;
+  }
+
+  .main__user-botton-profile {
+    position: absolute;
+    bottom: 50px;
+    left: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .main__users {
+    position: absolute;
+    bottom: 100px;
+    right: 170px;
+  }
+
+  /* User-card */
+  .user-card {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #eff3f4;
+  }
+
+  .user-card__img {
+    width: 100%;
+    height: 250px;
+  }
+}
