@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./static/css/main.css" />
     <title>Student Share</title>
     <script defer src="./static/js/main.js"></script>
+    <script defer src="./static/js/videos.js"></script>
   </head>
   <body>
     <main class="main">
@@ -21,19 +22,19 @@
         <div class="main__logo">STUDENT<span>SHARE</span></div>
         <div class="main__nav">
           <ul class="main__items">
-            <li class="main__item">
+            <li id="main__item--home" class="main__item">
               <div class="main_link">
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>Home</span>
               </div>
             </li>
-            <li class="main__item">
+            <li id="main__item--topics" class="main__item">
               <div class="main_link">
                 <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
                 <span>Topics</span>
               </div>
             </li>
-            <li class="main__item">
+            <li id="main__item--videos" class="main__item">
               <div class="main_link">
                 <i class="fa fa-video-camera" aria-hidden="true"></i>
                 <span>Videos</span>
@@ -86,7 +87,7 @@
                 </p>
                 <img
                   class="user-card__img"
-                  src="./static/images/prof-1.avif"
+                  src="https://plus.unsplash.com/premium_photo-1675034793696-9850176b9aee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjA3fDB8MXxzZWFyY2h8MjV8fHByb2ZpbGV8ZW58MHx8fHwxNjg4NTQ5MzI1fDE&ixlib=rb-4.0.3&q=80&w=1080"
                   alt=""
                 />
               </div>
@@ -121,7 +122,7 @@
               <div class="user-card__profile">
                 <img
                   class="img-profile"
-                  src="./static/images/prof-1.avif"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
                   alt="profile"
                 />
               </div>
@@ -223,7 +224,7 @@
             </div>
           </div>
         </div>
-        <div id="topics_modal" class="container-card container-card--videos">
+        <div id="videos_modal" class="container-card container-card--videos">
           <div class="container-card__header">
             <h1 class="container-card__page">Videos</h1>
             <div class="container-card__tabs">
