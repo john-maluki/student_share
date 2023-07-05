@@ -175,13 +175,42 @@
   text-align: justify;
 }
 
+.user-card__description--more::after {
+  content: " Learn more...";
+  color: #1d9bf0;
+  cursor: pointer;
+}
+
 .user-card__img {
   width: 100%;
+}
+
+.user-card__expression {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.user-card__user-expression-icon {
+  transform: scale(1.1);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.user-card__expression-number {
+  font-size: 14px;
+  font-weight: bold;
+  color: grey;
+  font-family: "Patrick Hand";
 }
 
 @media (min-width: 43.75em) {
   .main {
     display: flex;
+  }
+
+  .container-card--home {
+    display: none;
   }
 
   .container-card__header {
@@ -237,5 +266,11 @@
   .user-card__img {
     width: 100%;
     height: 250px;
+  }
+
+  .user-card__footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
   }
 }

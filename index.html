@@ -62,7 +62,7 @@
         </div>
       </section>
       <section class="main__content-pane">
-        <div class="container-card container-card--home">
+        <div id="home_modal" class="container-card container-card--home">
           <div class="container-card__header">
             <h1 class="container-card__page">Home</h1>
             <div class="container-card__tabs">
@@ -173,6 +173,58 @@
                   src="./static/images/prof-1.avif"
                   alt=""
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="topics_modal" class="container-card container-card--topics">
+          <div class="container-card__header">
+            <h1 class="container-card__page">Topics</h1>
+            <div class="container-card__tabs">
+              <h4>Topics</h4>
+              <h4>Following</h4>
+            </div>
+          </div>
+          <div class="container-card__content">
+            <div class="user-card">
+              <div class="user-card__profile">
+                <img
+                  class="img-profile"
+                  src="./static/images/prof-1.avif"
+                  alt="profile"
+                />
+              </div>
+              <div class="user-card__details">
+                <div class="user-card__header">
+                  <h1 class="user-card__title">Clean architecture</h1>
+                  <span class="user-card__handle">@john</span>
+                </div>
+                <p class="user-card__description user-card__description--more">
+                  Clean architecture is a software design philosophy that
+                  separates the elements of a design into ring levels. An
+                  important goal of clean architecture is to provide developers
+                  with a way to organize code in such a way that it encapsulates
+                  the business logic but keeps it separate from the delivery
+                  mechanism
+                </p>
+                <div class="user-card__footer">
+                  <div class="user-card__expression">
+                    <i
+                      class="fa fa-thumbs-up user-card__user-expression-icon"
+                      title="like"
+                      aria-hidden="true"
+                    ></i>
+                    <h3 class="user-card__expression-number">likes 1200</h3>
+                  </div>
+                  <div class="user-card__expression">
+                    <i
+                      class="fa fa-user user-card__user-expression-icon"
+                      title="Follow"
+                      aria-hidden="true"
+                    ></i>
+                    <h3 class="user-card__expression-number">Followers 1200</h3>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
