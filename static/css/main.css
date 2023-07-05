@@ -1,5 +1,6 @@
 @import url("./global.css");
 @import url("./utils.css");
+
 /* main */
 .main {
   width: 100%;
@@ -284,9 +285,9 @@
     justify-content: flex-end;
   }
 
-  /* Share video modal*/
+  /* Share video/topic modal*/
   .modal {
-    /* display: none; */
+    display: none;
     width: 370px;
     height: 100vh;
     position: fixed;
