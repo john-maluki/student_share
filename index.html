@@ -358,5 +358,45 @@
         </div>
       </section>
     </main>
+    <section id="share-video-form-modal" class="modal">
+      <div id="modal__close" class="modal__close" title="close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <form id="modal__form" class="modal__form" action="#">
+        <label for="modal__username">Username:</label>
+        <input
+          class="modal__input"
+          id="modal__username"
+          type="text"
+          placeholder="Username"
+          required
+        />
+        <label for="modal__video-name">Video Title:</label>
+        <input
+          class="modal__input"
+          id="modal__video-name"
+          type="text"
+          placeholder="Title"
+          required
+        />
+        <label for="modal__video-name">Video Description:</label>
+        <input
+          class="modal__input"
+          id="modal__video-name"
+          type="text"
+          placeholder="Video description"
+          required
+        />
+        <label for="modal__video-url">Image Url:</label>
+        <input
+          class="modal__input"
+          id="modal__video-url"
+          type="url"
+          placeholder="Video url"
+          required
+        />
+        <input class="modal__input" type="submit" value="Share Video" />
+      </form>
+    </section>
   </body>
 </html>
