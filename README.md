@@ -1,6 +1,6 @@
 # Student Share
 
-Using the platform, `Student Share`, students can create shareable learning materials such as technical topics, books, and tutorial videos. For the benefit of other students and to help them find high-quality resources, each student can rate the quality of each piece of course material. The materials with the highest ratings are displayed first.
+Using the platform, `Student Share`, students can create shareable learning materials such as technical topics and tutorial videos. For the benefit of other students and to help them find high-quality resources, each student can rate the quality of each piece of course material. The materials with the highest likes are displayed first.
 
 ## Learning Goals
 
@@ -21,3 +21,41 @@ Using the platform, `Student Share`, students can create shareable learning mate
 - Some interactivity is required. This could be as simple as adding a "like" button or adding comments. These interactions do not need to persist after reloading the page.
 
 - Follow good coding practices. Keep your code DRY (Do not repeat yourself) by utilizing functions to abstract repetitive code.
+
+## Technologies Used
+
+The following have been used on this project:
+
+- HTML
+- CSS
+- JavaScript
+
+#### Live link to view the project <a href="https://john-maluki.github.io/student_share/">View Student Share</a>
+
+## Setup Requirements
+
+- Git
+- Web-browser or your choice
+- Github
+
+## Screenshots Of the application
+
+- Home section
+
+  <img src="./docs/screenshots/home.png" alt="screenshot" />
+
+- Videos section
+
+  <img src="./docs/screenshots/videos.png" alt="screenshot" />
+
+- Topics section
+
+  <img src="./docs/screenshots/topics.png" alt="screenshot" />
+
+## Authors
+
+- [John Maluki](https://github.com/john-maluki)
+
+## Copyright
+
+Released under the MIT License. See the [LICENSE](https://github.com/john-maluki/student_share/blob/main/License) file.
