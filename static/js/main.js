@@ -219,11 +219,12 @@ const fetchAllUsersFromServer = async () => {
 
 // Initialize app when it loads
 const init = async () => {
-  const home = document.querySelector("#videos_modal");
+  const home = document.querySelector("#home_modal");
   home.classList.add("modal--visible");
   await setUsers();
   await setVideos();
   renderVideosOnDom();
 };
 
-window.onload = init;
+//when documents loads invoke init
+document.addEventListener("DOMContentLoaded", init);
