@@ -21,6 +21,7 @@ const topicsNavNode = document.querySelector("#main__item--topics");
 const videosNavNode = document.querySelector("#main__item--videos");
 
 const containerCardNode = document.querySelectorAll(".container-card");
+const topicFormNode = document.querySelector("#topic__form");
 
 // Get methods
 const getDomainUrl = () => {
@@ -89,6 +90,26 @@ const handleDisplayingVideosContent = (e) => {
   videos.classList.add("modal--visible");
 };
 
+const handleTopicFormSubmission = (e) => {
+  e.preventDefault();
+  console.log(e.target);
+  const userNameNode = e.target.querySelector("#modal__username");
+  const topicTitleNode = e.target.querySelector("#modal__topic-name");
+  const descriptionNode = e.target.querySelector("#modal__topic-description");
+  const userId = findUserIdFromGiveHandle(userNameNode.value);
+
+  const topic = {
+    title: topicTitleNode.value,
+    description: descriptionNode.value,
+    userId: userId,
+    likes: 0,
+    followers: 0,
+  };
+  console.log(topic);
+  createTopicOnServer(topic);
+  renderTopicsOnDom();
+};
+
 // Adding event listers to nodes
 videoShareButtonNode.addEventListener("click", handleVideoModalPaneToggle);
 modalVideoCloseNode.addEventListener("click", handleVideoModalPaneToggle);
@@ -99,6 +120,8 @@ modalTopicCloseNode.addEventListener("click", handleTopicModalPaneToggle);
 homeNavNode.addEventListener("click", handleDisplayingHomeContent);
 topicsNavNode.addEventListener("click", handleDisplayingTopicsContent);
 videosNavNode.addEventListener("click", handleDisplayingVideosContent);
+
+topicFormNode.addEventListener("submit", handleTopicFormSubmission);
 
 // Working with videos
 const fetchAllVideosFromServer = async () => {
@@ -225,6 +248,20 @@ const fetchAllTopicsFromServer = async () => {
     .then((topics) => topics);
 };
 
+const createTopicOnServer = async (topic) => {
+  return fetch(`${getDomainUrl()}/topics`, {
+    method: "POST",
+    body: JSON.stringify(topic),
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then((resp) => {
+    if (resp.status === 2000) {
+      alert("New topic added successfully!!");
+    }
+  });
+};
+
 const renderTopicsOnDom = async () => {
   const topics = await fetchAllTopicsFromServer();
   const sortedTopics = sortTopicsByNumberOfLikes(topics);
@@ -314,6 +351,14 @@ const renderTopic = (topic) => {
 };
 
 // Working with users
+const findUserIdFromGiveHandle = (handle) => {
+  const user = users.find((user) => user.handle === handle);
+  if (!user) {
+    alert("Error creating topic with that handle");
+  }
+  return user.id;
+};
+
 const fetchAllUsersFromServer = async () => {
   return fetch(`${getDomainUrl()}/users`)
     .then((resp) => resp.json())

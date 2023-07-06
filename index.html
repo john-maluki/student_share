@@ -32,7 +32,6 @@
     <link rel="stylesheet" href="./static/css/main.css" />
     <title>Student Share</title>
     <script defer src="./static/js/main.js"></script>
-    <script defer src="./static/js/videos.js"></script>
   </head>
   <body>
     <main class="main">
@@ -143,7 +142,7 @@
       <div id="modal__video-close" class="modal__close" title="close">
         <i class="fa fa-times" aria-hidden="true"></i>
       </div>
-      <form id="modal__form" class="modal__form" action="#">
+      <form id="video__form" class="modal__form" action="#">
         <label for="modal__username">Username:</label>
         <input
           class="modal__input"
@@ -161,13 +160,13 @@
           required
         />
         <label for="modal__video-name">Video Description:</label>
-        <input
+        <textarea
           class="modal__input"
           id="modal__video-name"
-          type="text"
+          rows="3"
           placeholder="Video description"
           required
-        />
+        ></textarea>
         <label for="modal__video-url">Image Url:</label>
         <input
           class="modal__input"
@@ -183,13 +182,13 @@
       <div id="modal__topic-close" class="modal__close" title="close">
         <i class="fa fa-times" aria-hidden="true"></i>
       </div>
-      <form id="modal__form" class="modal__form" action="#">
-        <label for="modal__username">Username:</label>
+      <form id="topic__form" class="modal__form" action="#">
+        <label for="modal__username">Handle:</label>
         <input
           class="modal__input"
           id="modal__username"
           type="text"
-          placeholder="username"
+          placeholder="e.g, @doe"
           required
         />
         <label for="modal__topic-name">Write about:</label>
@@ -201,13 +200,13 @@
           required
         />
         <label for="modal__topic-name">Description:</label>
-        <input
+        <textarea
           class="modal__input"
-          id="modal__video-name"
-          type="text"
+          id="modal__topic-description"
+          rows="6"
           placeholder="topic description"
           required
-        />
+        ></textarea>
         <input class="modal__input" type="submit" value="Share Topic" />
       </form>
     </section>
