@@ -22,6 +22,7 @@ const videosNavNode = document.querySelector("#main__item--videos");
 
 const containerCardNode = document.querySelectorAll(".container-card");
 const topicFormNode = document.querySelector("#topic__form");
+const videoFormNode = document.querySelector("#video__form");
 
 // Get methods
 const getDomainUrl = () => {
@@ -35,6 +36,13 @@ const setUsers = async () => {
 
 const setVideos = async () => {
   videos = await fetchAllVideosFromServer();
+};
+
+//reset methods
+const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 };
 
 // Handlers
@@ -90,24 +98,55 @@ const handleDisplayingVideosContent = (e) => {
   videos.classList.add("modal--visible");
 };
 
-const handleTopicFormSubmission = (e) => {
+const handleTopicFormSubmission = async (e) => {
   e.preventDefault();
-  console.log(e.target);
   const userNameNode = e.target.querySelector("#modal__username");
   const topicTitleNode = e.target.querySelector("#modal__topic-name");
   const descriptionNode = e.target.querySelector("#modal__topic-description");
   const userId = findUserIdFromGiveHandle(userNameNode.value);
 
-  const topic = {
-    title: topicTitleNode.value,
-    description: descriptionNode.value,
-    userId: userId,
-    likes: 0,
-    followers: 0,
-  };
-  console.log(topic);
-  createTopicOnServer(topic);
-  renderTopicsOnDom();
+  if (userId) {
+    const topic = {
+      title: topicTitleNode.value,
+      description: descriptionNode.value,
+      userId: userId,
+      likes: 0,
+      followers: 0,
+    };
+    const createdTopic = await createTopicOnServer(topic);
+    console.log(createdTopic);
+    if ("id" in createdTopic) {
+      e.target.reset();
+      renderTopic(createdTopic);
+    }
+  }
+};
+
+const handleVideoFormSubmission = async (e) => {
+  e.preventDefault();
+  const userNameNode = e.target.querySelector("#modal__handle");
+  const videoTitleNode = e.target.querySelector("#modal__video-name");
+  const videoDescriptionNode = e.target.querySelector(
+    "#modal__video-description"
+  );
+  const videoUrlNode = e.target.querySelector("#modal__video-url");
+  const userId = findUserIdFromGiveHandle(userNameNode.value);
+
+  if (userId) {
+    const video = {
+      title: videoTitleNode.value,
+      video_description: videoDescriptionNode.value,
+      userId: userId,
+      video_url: videoUrlNode.value,
+      likes: 0,
+      followers: 0,
+    };
+    const createdVideo = await createVideoOnServer(video);
+    if ("id" in createdVideo) {
+      e.target.reset();
+      renderVideo(createdVideo);
+    }
+  }
 };
 
 // Adding event listers to nodes
@@ -122,12 +161,25 @@ topicsNavNode.addEventListener("click", handleDisplayingTopicsContent);
 videosNavNode.addEventListener("click", handleDisplayingVideosContent);
 
 topicFormNode.addEventListener("submit", handleTopicFormSubmission);
+videoFormNode.addEventListener("submit", handleVideoFormSubmission);
 
 // Working with videos
 const fetchAllVideosFromServer = async () => {
   return fetch(`${getDomainUrl()}/videos`)
     .then((resp) => resp.json())
     .then((videos) => videos);
+};
+
+const createVideoOnServer = async (video) => {
+  return fetch(`${getDomainUrl()}/videos`, {
+    method: "POST",
+    body: JSON.stringify(video),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((resp) => resp.json())
+    .then((video) => video);
 };
 
 const sortVideosByNumberOfLikes = (videos) => {
@@ -144,93 +196,101 @@ const renderVideosOnDom = async () => {
   const containerCardContentNode = document.querySelector(
     "#container-card__content"
   );
+  removeAllChildNodes(containerCardContentNode); // remove any children first before inserting again
   sortedVideos.forEach((video) => {
-    const user = users.find((user) => user.id === video.userId);
-
-    const userCardNode = document.createElement("div");
-    userCardNode.classList.add("user-card");
-    const userCardProfileNode = document.createElement("div");
-    userCardProfileNode.classList.add("user-card__profile");
-    const imgProfileNode = document.createElement("img");
-    imgProfileNode.classList.add("img-profile");
-    imgProfileNode.src = user.profile_pic;
-    imgProfileNode.alt = user.name;
-    const userCardDetailsNode = document.createElement("div");
-    userCardDetailsNode.classList.add("user-card__details");
-    const userCardHeaderNode = document.createElement("div");
-    userCardHeaderNode.classList.add("user-card__header");
-    const userCardTitleNode = document.createElement("h1");
-    userCardTitleNode.classList.add("user-card__title");
-    userCardTitleNode.textContent = video.title;
-    const userCardHandleNode = document.createElement("span");
-    userCardHandleNode.classList.add("user-card__handle");
-    userCardHandleNode.textContent = user.handle;
-    const userCardDescriptionNode = document.createElement("p");
-    userCardDescriptionNode.classList.add("user-card__description");
-    userCardDescriptionNode.textContent = video.video_description;
-    const userCardVideoNode = document.createElement("div");
-    userCardVideoNode.classList.add("user-card__video");
-    const iframeNode = document.createElement("iframe");
-    iframeNode.width = "100%";
-    iframeNode.height = "100%";
-    iframeNode.src = video.video_url;
-    iframeNode.title = "YouTube video player";
-    iframeNode.frameborder = "0";
-    iframeNode.allow =
-      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframeNode.allowFullscreen = true;
-    const userCardFooterNode = document.createElement("div");
-    userCardFooterNode.classList.add("user-card__footer");
-    const userCardExpressionNode = document.createElement("div");
-    userCardExpressionNode.classList.add("user-card__expression");
-    const faThumbsUpNode = document.createElement("i");
-    faThumbsUpNode.classList.add("fa");
-    faThumbsUpNode.classList.add("fa-thumbs-up");
-    faThumbsUpNode.classList.add("user-card__user-expression-icon");
-    faThumbsUpNode.title = "Follow";
-    // faThumbsUpNode.aria-hidden="true"
-    const likesNode = document.createElement("h3");
-    likesNode.classList.add("user-card__expression-number");
-    likesNode.textContent = "Likes ";
-    const likesNumberNode = document.createElement("span");
-    likesNumberNode.textContent = video.likes;
-
-    const userCardExpressionNode2 = document.createElement("div");
-    userCardExpressionNode2.classList.add("user-card__expression");
-    const faUserNode = document.createElement("i");
-    faUserNode.classList.add("fa");
-    faUserNode.classList.add("fa-user");
-    faUserNode.classList.add("user-card__user-expression-icon");
-    faUserNode.title = "Follow";
-    // faUserNode.aria-hidden="true"
-    const followersNode = document.createElement("h3");
-    followersNode.classList.add("user-card__expression-number");
-    followersNode.textContent = "Followers ";
-    const followersNumberNode = document.createElement("span");
-    followersNumberNode.textContent = video.followers;
-
-    userCardNode.appendChild(userCardProfileNode);
-    userCardNode.appendChild(userCardDetailsNode);
-    userCardProfileNode.appendChild(imgProfileNode);
-
-    userCardDetailsNode.appendChild(userCardHeaderNode);
-    userCardDetailsNode.appendChild(userCardDescriptionNode);
-    userCardDetailsNode.appendChild(userCardVideoNode);
-    userCardDetailsNode.appendChild(userCardFooterNode);
-    userCardHeaderNode.appendChild(userCardTitleNode);
-    userCardHeaderNode.appendChild(userCardHandleNode);
-    userCardVideoNode.appendChild(iframeNode);
-    userCardFooterNode.appendChild(userCardExpressionNode);
-    userCardFooterNode.appendChild(userCardExpressionNode2);
-    userCardExpressionNode.appendChild(faThumbsUpNode);
-    userCardExpressionNode.appendChild(likesNode);
-    likesNode.appendChild(likesNumberNode);
-    userCardExpressionNode2.appendChild(faUserNode);
-    userCardExpressionNode2.appendChild(followersNode);
-    followersNode.appendChild(followersNumberNode);
-
-    containerCardContentNode.appendChild(userCardNode);
+    renderVideo(video);
   });
+};
+
+const renderVideo = (video) => {
+  const containerCardContentNode = document.querySelector(
+    "#container-card__content"
+  );
+  const user = users.find((user) => user.id === video.userId);
+
+  const userCardNode = document.createElement("div");
+  userCardNode.classList.add("user-card");
+  const userCardProfileNode = document.createElement("div");
+  userCardProfileNode.classList.add("user-card__profile");
+  const imgProfileNode = document.createElement("img");
+  imgProfileNode.classList.add("img-profile");
+  imgProfileNode.src = user.profile_pic;
+  imgProfileNode.alt = user.name;
+  const userCardDetailsNode = document.createElement("div");
+  userCardDetailsNode.classList.add("user-card__details");
+  const userCardHeaderNode = document.createElement("div");
+  userCardHeaderNode.classList.add("user-card__header");
+  const userCardTitleNode = document.createElement("h1");
+  userCardTitleNode.classList.add("user-card__title");
+  userCardTitleNode.textContent = video.title;
+  const userCardHandleNode = document.createElement("span");
+  userCardHandleNode.classList.add("user-card__handle");
+  userCardHandleNode.textContent = user.handle;
+  const userCardDescriptionNode = document.createElement("p");
+  userCardDescriptionNode.classList.add("user-card__description");
+  userCardDescriptionNode.textContent = video.video_description;
+  const userCardVideoNode = document.createElement("div");
+  userCardVideoNode.classList.add("user-card__video");
+  const iframeNode = document.createElement("iframe");
+  iframeNode.width = "100%";
+  iframeNode.height = "100%";
+  iframeNode.src = video.video_url;
+  iframeNode.title = "YouTube video player";
+  iframeNode.frameborder = "0";
+  iframeNode.allow =
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframeNode.allowFullscreen = true;
+  const userCardFooterNode = document.createElement("div");
+  userCardFooterNode.classList.add("user-card__footer");
+  const userCardExpressionNode = document.createElement("div");
+  userCardExpressionNode.classList.add("user-card__expression");
+  const faThumbsUpNode = document.createElement("i");
+  faThumbsUpNode.classList.add("fa");
+  faThumbsUpNode.classList.add("fa-thumbs-up");
+  faThumbsUpNode.classList.add("user-card__user-expression-icon");
+  faThumbsUpNode.title = "Follow";
+  // faThumbsUpNode.aria-hidden="true"
+  const likesNode = document.createElement("h3");
+  likesNode.classList.add("user-card__expression-number");
+  likesNode.textContent = "Likes ";
+  const likesNumberNode = document.createElement("span");
+  likesNumberNode.textContent = video.likes;
+
+  const userCardExpressionNode2 = document.createElement("div");
+  userCardExpressionNode2.classList.add("user-card__expression");
+  const faUserNode = document.createElement("i");
+  faUserNode.classList.add("fa");
+  faUserNode.classList.add("fa-user");
+  faUserNode.classList.add("user-card__user-expression-icon");
+  faUserNode.title = "Follow";
+  // faUserNode.aria-hidden="true"
+  const followersNode = document.createElement("h3");
+  followersNode.classList.add("user-card__expression-number");
+  followersNode.textContent = "Followers ";
+  const followersNumberNode = document.createElement("span");
+  followersNumberNode.textContent = video.followers;
+
+  userCardNode.appendChild(userCardProfileNode);
+  userCardNode.appendChild(userCardDetailsNode);
+  userCardProfileNode.appendChild(imgProfileNode);
+
+  userCardDetailsNode.appendChild(userCardHeaderNode);
+  userCardDetailsNode.appendChild(userCardDescriptionNode);
+  userCardDetailsNode.appendChild(userCardVideoNode);
+  userCardDetailsNode.appendChild(userCardFooterNode);
+  userCardHeaderNode.appendChild(userCardTitleNode);
+  userCardHeaderNode.appendChild(userCardHandleNode);
+  userCardVideoNode.appendChild(iframeNode);
+  userCardFooterNode.appendChild(userCardExpressionNode);
+  userCardFooterNode.appendChild(userCardExpressionNode2);
+  userCardExpressionNode.appendChild(faThumbsUpNode);
+  userCardExpressionNode.appendChild(likesNode);
+  likesNode.appendChild(likesNumberNode);
+  userCardExpressionNode2.appendChild(faUserNode);
+  userCardExpressionNode2.appendChild(followersNode);
+  followersNode.appendChild(followersNumberNode);
+
+  containerCardContentNode.appendChild(userCardNode);
 };
 
 // Working with topics
@@ -255,11 +315,9 @@ const createTopicOnServer = async (topic) => {
     headers: {
       "Content-type": "application/json",
     },
-  }).then((resp) => {
-    if (resp.status === 2000) {
-      alert("New topic added successfully!!");
-    }
-  });
+  })
+    .then((resp) => resp.json())
+    .then((topic) => topic);
 };
 
 const renderTopicsOnDom = async () => {
@@ -268,13 +326,17 @@ const renderTopicsOnDom = async () => {
   const containerCardContentNode = document.querySelector(
     "#topics_modal .container-card__content"
   );
+  removeAllChildNodes(containerCardContentNode); // clear all child nodes
   sortedTopics.forEach((topic) => {
-    const topicsCardNode = renderTopic(topic);
-    containerCardContentNode.appendChild(topicsCardNode);
+    renderTopic(topic);
   });
 };
 
 const renderTopic = (topic) => {
+  const containerCardContentNode = document.querySelector(
+    "#topics_modal .container-card__content"
+  );
+
   const user = users.find((user) => user.id === topic.userId);
   const userCardNode = document.createElement("div");
   userCardNode.classList.add("user-card");
@@ -290,7 +352,7 @@ const renderTopic = (topic) => {
   userCardHeaderNode.classList.add("user-card__header");
   const userCardTitleNode = document.createElement("h1");
   userCardTitleNode.classList.add("user-card__title");
-  userCardTitleNode.textContent = user.name;
+  userCardTitleNode.textContent = topic.title;
   const userCardHandleNode = document.createElement("span");
   userCardHandleNode.classList.add("user-card__handle");
   userCardHandleNode.textContent = user.handle;
@@ -347,7 +409,7 @@ const renderTopic = (topic) => {
   userCardDetailsNode.appendChild(userCardDescriptionNode);
   userCardDetailsNode.appendChild(userCardFooterNode);
 
-  return userCardNode;
+  containerCardContentNode.appendChild(userCardNode);
 };
 
 // Working with users
@@ -355,8 +417,9 @@ const findUserIdFromGiveHandle = (handle) => {
   const user = users.find((user) => user.handle === handle);
   if (!user) {
     alert("Error creating topic with that handle");
+  } else {
+    return user.id;
   }
-  return user.id;
 };
 
 const fetchAllUsersFromServer = async () => {
