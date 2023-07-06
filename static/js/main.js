@@ -211,6 +211,14 @@ const renderVideosOnDom = async () => {
 };
 
 // Working with topics
+const sortTopicsByNumberOfLikes = (topics) => {
+  // sort topics based on likes
+  const sortedTopics = topics.sort((t1, t2) =>
+    t1.likes < t2.likes ? 1 : t1.likes > t2.likes ? -1 : 0
+  );
+  return sortedTopics;
+};
+
 const fetchAllTopicsFromServer = async () => {
   return fetch(`${getDomainUrl()}/topics`)
     .then((resp) => resp.json())
@@ -219,10 +227,11 @@ const fetchAllTopicsFromServer = async () => {
 
 const renderTopicsOnDom = async () => {
   const topics = await fetchAllTopicsFromServer();
+  const sortedTopics = sortTopicsByNumberOfLikes(topics);
   const containerCardContentNode = document.querySelector(
     "#topics_modal .container-card__content"
   );
-  topics.forEach((topic) => {
+  sortedTopics.forEach((topic) => {
     const topicsCardNode = renderTopic(topic);
     containerCardContentNode.appendChild(topicsCardNode);
   });
