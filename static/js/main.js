@@ -1,8 +1,8 @@
 const MAIN_URL = "http://localhost:3000";
 
-let users = {};
-let videos = {};
-let topics = {};
+let users = [];
+let videos = [];
+let topics = [];
 
 // Defining global nodes
 const topicShareButtonNode = document.querySelector("#topic-share-button");
@@ -217,12 +217,63 @@ const fetchAllUsersFromServer = async () => {
     .then((users) => users);
 };
 
+const renderUsersOnDom = async () => {
+  const users = await fetchAllUsersFromServer();
+  const containerCardContentNode = document.querySelector(
+    "#home_modal .container-card__content"
+  );
+  users.forEach((user) => {
+    const userCardNode = renderUser(user);
+    containerCardContentNode.appendChild(userCardNode);
+  });
+};
+
+const renderUser = (user) => {
+  const userCardNode = document.createElement("div");
+  userCardNode.classList.add("user-card");
+  const userCardProfileNode = document.createElement("div");
+  userCardProfileNode.classList.add("user-card__profile");
+  const imgProfileNode = document.createElement("img");
+  imgProfileNode.classList.add("img-profile");
+  imgProfileNode.src = user.profile_pic;
+  imgProfileNode.alt = user.name;
+  const userCardDetailsNode = document.createElement("div");
+  userCardDetailsNode.classList.add("user-card__details");
+  const userCardHeaderNode = document.createElement("div");
+  userCardHeaderNode.classList.add("user-card__header");
+  const userCardTitleNode = document.createElement("h1");
+  userCardTitleNode.classList.add("user-card__title");
+  userCardTitleNode.textContent = user.name;
+  const userCardHandleNode = document.createElement("span");
+  userCardHandleNode.classList.add("user-card__handle");
+  userCardHandleNode.textContent = user.handle;
+  const userCardDescriptionNode = document.createElement("p");
+  userCardDescriptionNode.classList.add("user-card__description");
+  userCardDescriptionNode.textContent = user.pitch;
+  const userCardImgNode = document.createElement("img");
+  userCardImgNode.classList.add("user-card__img");
+  userCardImgNode.src = user.profile_pic;
+  userCardImgNode.alt = user.name;
+
+  userCardNode.appendChild(userCardProfileNode);
+  userCardNode.appendChild(userCardDetailsNode);
+  userCardProfileNode.appendChild(imgProfileNode);
+
+  userCardHeaderNode.appendChild(userCardTitleNode);
+  userCardHeaderNode.appendChild(userCardHandleNode);
+  userCardDetailsNode.appendChild(userCardHeaderNode);
+  userCardDetailsNode.appendChild(userCardDescriptionNode);
+  userCardDetailsNode.appendChild(userCardImgNode);
+
+  return userCardNode;
+};
 // Initialize app when it loads
 const init = async () => {
   const home = document.querySelector("#home_modal");
   home.classList.add("modal--visible");
   await setUsers();
   await setVideos();
+  renderUsersOnDom();
   renderVideosOnDom();
 };
 
