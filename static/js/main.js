@@ -160,7 +160,7 @@ const handleVideoLikeEvent = async (e) => {
   const video = searchVideoByIdFromVideos(videoId);
   const dtoVideo = { id: video.id, likes: video.likes + 1 };
 
-  updatedVideo = await incrementVideoLikesOnServer(dtoVideo);
+  const updatedVideo = await incrementVideoLikesOnServer(dtoVideo);
 
   if ("id" in updatedVideo) {
     spanNode.textContent = updatedVideo.likes;
@@ -170,6 +170,21 @@ const handleVideoLikeEvent = async (e) => {
   }
 };
 
+const handleTopicLikeEvent = async (e) => {
+  const topicId = Number.parseInt(e.target.id);
+  const spanNode = e.target.nextSibling.querySelector("span");
+  const topic = searchTopicsByIdFromTopics(topicId);
+  const dtoTopic = { id: topic.id, likes: topic.likes + 1 };
+
+  const updatedTopic = await incrementTopicLikesOnServer(dtoTopic);
+
+  if ("id" in updatedTopic) {
+    spanNode.textContent = updatedTopic.likes;
+    topics = topics.map((topics) =>
+      topics.id === updatedTopic.id ? updatedTopic : topic
+    );
+  }
+};
 // Adding event listers to nodes
 videoShareButtonNode.addEventListener("click", handleVideoModalPaneToggle);
 modalVideoCloseNode.addEventListener("click", handleVideoModalPaneToggle);
@@ -361,6 +376,23 @@ const createTopicOnServer = async (topic) => {
     .then((topic) => topic);
 };
 
+const incrementTopicLikesOnServer = async (topic) => {
+  return fetch(`${getDomainUrl()}/topics/${topic.id}`, {
+    method: "PATCH",
+    body: JSON.stringify(topic),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((resp) => resp.json())
+    .then((topic) => topic);
+};
+
+const searchTopicsByIdFromTopics = (topicId) => {
+  const topic = topics.find((topic) => topic.id === topicId);
+  return topic;
+};
+
 const renderTopicsOnDom = async () => {
   const topics = await fetchAllTopicsFromServer();
   const sortedTopics = sortTopicsByNumberOfLikes(topics);
@@ -430,6 +462,9 @@ const renderTopic = (topic) => {
   followersNode.textContent = "Followers ";
   const followersNumberNode = document.createElement("span");
   followersNumberNode.textContent = topic.followers;
+
+  faThumbsUpNode.id = topic.id;
+  faThumbsUpNode.addEventListener("click", handleTopicLikeEvent);
 
   userCardNode.appendChild(userCardProfileNode);
   userCardNode.appendChild(userCardDetailsNode);

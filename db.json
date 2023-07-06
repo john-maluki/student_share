@@ -1,74 +1,108 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Joy Wagere",
-            "handle": "@joy",
-            "profile_pic": "https://img.freepik.com/free-photo/cheerful-curly-business-girl-wearing-glasses_176420-206.jpg?size=626&ext=jpg&ga=GA1.1.56092171.1688454543&semt=ais",
-            "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
-            "followers": []
-        },
-        {
-            "id": 2,
-            "name": "Naniel Leki",
-            "handle": "@leki",
-            "profile_pic": "https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
-            "followers": []
-        },
-        {
-            "id": 3,
-            "name": "Benson Nzaia",
-            "handle": "@benson",
-            "profile_pic": "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-            "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
-            "followers": []
-        },
-        {
-            "id": 4,
-            "name": "Mercy Wanjere",
-            "handle": "@mercy",
-            "profile_pic": "https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-            "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
-            "followers": []
-        }
-    ],
-    "topics": [
-        {
-            "id": 1,
-            "title": "Clean architecture",
-            "description": "Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism ",
-            "userId": 1,
-            "likes": 30,
-            "followers": 100
-        },
-        {
-            "id": 2,
-            "title": "Clean architecture",
-            "description": "Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism ",
-            "userId": 2,
-            "likes": 40,
-            "followers": 150
-        }
-    ],
-    "videos": [
-        {
-            "id": 1,
-            "title": "How to Embed a YouTube Video in Your Website",
-            "video_description": "In this tutorial, you'll learn how to add a YouTube video into your project.",
-            "video_url": "https://www.youtube.com/embed/ly36kn0ug4k",
-            "likes": 20,
-            "followers": 200,
-            "userId": 2
-        },
-        {
-            "id": 2,
-            "title": "Creating a layered card",
-            "video_description": "Creating a layered card with HTML & CSS",
-            "video_url": "https://www.youtube.com/embed/TskEjH6VkSM",
-            "likes": 1000,
-            "followers": 1400,
-            "userId": 3
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "name": "Joy Wagere",
+      "handle": "@joy",
+      "profile_pic": "https://img.freepik.com/free-photo/cheerful-curly-business-girl-wearing-glasses_176420-206.jpg?size=626&ext=jpg&ga=GA1.1.56092171.1688454543&semt=ais",
+      "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
+      "followers": []
+    },
+    {
+      "id": 2,
+      "name": "Naniel Leki",
+      "handle": "@leki",
+      "profile_pic": "https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
+      "followers": []
+    },
+    {
+      "id": 3,
+      "name": "Benson Nzaia",
+      "handle": "@benson",
+      "profile_pic": "https://images.unsplash.com/photo-1474552226712-ac0f0961a954?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
+      "followers": []
+    },
+    {
+      "id": 4,
+      "name": "Mercy Wanjere",
+      "handle": "@mercy",
+      "profile_pic": "https://images.unsplash.com/photo-1569173112611-52a7cd38bea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      "pitch": "Lorem ipsum dolor sit amet consectetur adipisicing elit. vero? Eos, facere voluptas.",
+      "followers": []
+    }
+  ],
+  "topics": [
+    {
+      "id": 1,
+      "title": "Clean architecture",
+      "description": "Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism ",
+      "userId": 1,
+      "likes": 33,
+      "followers": 100
+    },
+    {
+      "id": 2,
+      "title": "Clean architecture",
+      "description": "Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism ",
+      "userId": 2,
+      "likes": 42,
+      "followers": 150
+    },
+    {
+      "title": "Agile software development",
+      "description": "Agile is a type of software development methodology that anticipates the need for flexibility and applies a level of pragmatism to the delivery of the finished product. Agile software development requires a cultural shift in many companies because it focuses on the clean delivery of individual pieces or parts of the software and not on the entire application.",
+      "userId": 2,
+      "likes": 0,
+      "followers": 0,
+      "id": 3
+    },
+    {
+      "title": "clean architecture",
+      "description": "Clean architecture is a software design philosophy that separates the elements of a design into ring levels",
+      "userId": 3,
+      "likes": 0,
+      "followers": 0,
+      "id": 4
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "title": "How to Embed a YouTube Video in Your Website",
+      "video_description": "In this tutorial, you'll learn how to add a YouTube video into your project.",
+      "video_url": "https://www.youtube.com/embed/ly36kn0ug4k",
+      "likes": 21,
+      "followers": 200,
+      "userId": 2
+    },
+    {
+      "id": 2,
+      "title": "Creating a layered card",
+      "video_description": "Creating a layered card with HTML & CSS",
+      "video_url": "https://www.youtube.com/embed/TskEjH6VkSM",
+      "likes": 1005,
+      "followers": 1400,
+      "userId": 3
+    },
+    {
+      "title": "Fetch in JavaScript",
+      "video_description": "Fetch GET, POST, PUT & DELETE requests in JavaScript in one line",
+      "userId": 2,
+      "video_url": "https://www.youtube.com/embed/bBYM3KMuXC4",
+      "likes": 8,
+      "followers": 0,
+      "id": 3
+    },
+    {
+      "title": "how I would learn digital marketing",
+      "video_description": "If I have to learn Digital Marketing from scratch again, I will do if differently to ensure I learn things quicker, have a stronger profile and grow quicker. I would learn things systematically keeping in mind the long term success and avoid shortcuts and avoid the noise in this space about learning",
+      "userId": 1,
+      "video_url": "https://www.youtube.com/embed/aUerDG2SNTA",
+      "likes": 1,
+      "followers": 0,
+      "id": 4
+    }
+  ]
 }
