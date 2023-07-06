@@ -210,6 +210,100 @@ const renderVideosOnDom = async () => {
   });
 };
 
+// Working with topics
+const fetchAllTopicsFromServer = async () => {
+  return fetch(`${getDomainUrl()}/topics`)
+    .then((resp) => resp.json())
+    .then((topics) => topics);
+};
+
+const renderTopicsOnDom = async () => {
+  const topics = await fetchAllTopicsFromServer();
+  const containerCardContentNode = document.querySelector(
+    "#topics_modal .container-card__content"
+  );
+  topics.forEach((topic) => {
+    const topicsCardNode = renderTopic(topic);
+    containerCardContentNode.appendChild(topicsCardNode);
+  });
+};
+
+const renderTopic = (topic) => {
+  const user = users.find((user) => user.id === topic.userId);
+  const userCardNode = document.createElement("div");
+  userCardNode.classList.add("user-card");
+  const userCardProfileNode = document.createElement("div");
+  userCardProfileNode.classList.add("user-card__profile");
+  const imgProfileNode = document.createElement("img");
+  imgProfileNode.classList.add("img-profile");
+  imgProfileNode.src = user.profile_pic;
+  imgProfileNode.alt = user.name;
+  const userCardDetailsNode = document.createElement("div");
+  userCardDetailsNode.classList.add("user-card__details");
+  const userCardHeaderNode = document.createElement("div");
+  userCardHeaderNode.classList.add("user-card__header");
+  const userCardTitleNode = document.createElement("h1");
+  userCardTitleNode.classList.add("user-card__title");
+  userCardTitleNode.textContent = user.name;
+  const userCardHandleNode = document.createElement("span");
+  userCardHandleNode.classList.add("user-card__handle");
+  userCardHandleNode.textContent = user.handle;
+  const userCardDescriptionNode = document.createElement("p");
+  userCardDescriptionNode.classList.add("user-card__description");
+  userCardDescriptionNode.classList.add("user-card__description--more");
+  userCardDescriptionNode.textContent = topic.description;
+  const userCardFooterNode = document.createElement("div");
+  userCardFooterNode.classList.add("user-card__footer");
+  const userCardExpressionNode = document.createElement("div");
+  userCardExpressionNode.classList.add("user-card__expression");
+  const faThumbsUpNode = document.createElement("i");
+  faThumbsUpNode.classList.add("fa");
+  faThumbsUpNode.classList.add("fa-thumbs-up");
+  faThumbsUpNode.classList.add("user-card__user-expression-icon");
+  faThumbsUpNode.title = "Follow";
+  // faThumbsUpNode.aria-hidden="true"
+  const likesNode = document.createElement("h3");
+  likesNode.classList.add("user-card__expression-number");
+  likesNode.textContent = "Likes ";
+  const likesNumberNode = document.createElement("span");
+  likesNumberNode.textContent = topic.likes;
+
+  const userCardExpressionNode2 = document.createElement("div");
+  userCardExpressionNode2.classList.add("user-card__expression");
+  const faUserNode = document.createElement("i");
+  faUserNode.classList.add("fa");
+  faUserNode.classList.add("fa-user");
+  faUserNode.classList.add("user-card__user-expression-icon");
+  faUserNode.title = "Follow";
+  // faUserNode.aria-hidden="true"
+  const followersNode = document.createElement("h3");
+  followersNode.classList.add("user-card__expression-number");
+  followersNode.textContent = "Followers ";
+  const followersNumberNode = document.createElement("span");
+  followersNumberNode.textContent = topic.followers;
+
+  userCardNode.appendChild(userCardProfileNode);
+  userCardNode.appendChild(userCardDetailsNode);
+  userCardProfileNode.appendChild(imgProfileNode);
+
+  userCardFooterNode.appendChild(userCardExpressionNode);
+  userCardFooterNode.appendChild(userCardExpressionNode2);
+  userCardExpressionNode.appendChild(faThumbsUpNode);
+  userCardExpressionNode.appendChild(likesNode);
+  likesNode.appendChild(likesNumberNode);
+  userCardExpressionNode2.appendChild(faUserNode);
+  userCardExpressionNode2.appendChild(followersNode);
+  followersNode.appendChild(followersNumberNode);
+
+  userCardHeaderNode.appendChild(userCardTitleNode);
+  userCardHeaderNode.appendChild(userCardHandleNode);
+  userCardDetailsNode.appendChild(userCardHeaderNode);
+  userCardDetailsNode.appendChild(userCardDescriptionNode);
+  userCardDetailsNode.appendChild(userCardFooterNode);
+
+  return userCardNode;
+};
+
 // Working with users
 const fetchAllUsersFromServer = async () => {
   return fetch(`${getDomainUrl()}/users`)
@@ -274,6 +368,7 @@ const init = async () => {
   await setUsers();
   await setVideos();
   renderUsersOnDom();
+  renderTopicsOnDom();
   renderVideosOnDom();
 };
 
