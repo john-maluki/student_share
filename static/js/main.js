@@ -39,6 +39,10 @@ const setVideos = async () => {
   videos = await fetchAllVideosFromServer();
 };
 
+const setTopics = async () => {
+  topics = await fetchAllTopicsFromServer();
+};
+
 //reset methods
 const removeAllChildNodes = (parent) => {
   while (parent.firstChild) {
@@ -150,6 +154,22 @@ const handleVideoFormSubmission = async (e) => {
   }
 };
 
+const handleVideoLikeEvent = async (e) => {
+  const videoId = Number.parseInt(e.target.id);
+  const spanNode = e.target.nextSibling.querySelector("span");
+  const video = searchVideoByIdFromVideos(videoId);
+  const dtoVideo = { id: video.id, likes: video.likes + 1 };
+
+  updatedVideo = await incrementVideoLikesOnServer(dtoVideo);
+
+  if ("id" in updatedVideo) {
+    spanNode.textContent = updatedVideo.likes;
+    videos = videos.map((video) =>
+      video.id === updatedVideo.id ? updatedVideo : video
+    );
+  }
+};
+
 // Adding event listers to nodes
 videoShareButtonNode.addEventListener("click", handleVideoModalPaneToggle);
 modalVideoCloseNode.addEventListener("click", handleVideoModalPaneToggle);
@@ -183,12 +203,29 @@ const createVideoOnServer = async (video) => {
     .then((video) => video);
 };
 
+const incrementVideoLikesOnServer = async (video) => {
+  return fetch(`${getDomainUrl()}/videos/${video.id}`, {
+    method: "PATCH",
+    body: JSON.stringify(video),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((resp) => resp.json())
+    .then((video) => video);
+};
+
 const sortVideosByNumberOfLikes = (videos) => {
   // sort videos based on likes
   const sortedVideos = videos.sort((v1, v2) =>
     v1.likes < v2.likes ? 1 : v1.likes > v2.likes ? -1 : 0
   );
   return sortedVideos;
+};
+
+const searchVideoByIdFromVideos = (videoId) => {
+  const video = videos.find((video) => video.id === videoId);
+  return video;
 };
 
 const renderVideosOnDom = async () => {
@@ -249,7 +286,7 @@ const renderVideo = (video) => {
   faThumbsUpNode.classList.add("fa");
   faThumbsUpNode.classList.add("fa-thumbs-up");
   faThumbsUpNode.classList.add("user-card__user-expression-icon");
-  faThumbsUpNode.title = "Follow";
+  faThumbsUpNode.title = "Like";
   // faThumbsUpNode.aria-hidden="true"
   const likesNode = document.createElement("h3");
   likesNode.classList.add("user-card__expression-number");
@@ -270,6 +307,9 @@ const renderVideo = (video) => {
   followersNode.textContent = "Followers ";
   const followersNumberNode = document.createElement("span");
   followersNumberNode.textContent = video.followers;
+
+  faThumbsUpNode.id = video.id;
+  faThumbsUpNode.addEventListener("click", handleVideoLikeEvent);
 
   userCardNode.appendChild(userCardProfileNode);
   userCardNode.appendChild(userCardDetailsNode);
@@ -485,6 +525,7 @@ const init = async () => {
   home.classList.add("modal--visible");
   await setUsers();
   await setVideos();
+  await setTopics();
   renderUsersOnDom();
   renderTopicsOnDom();
   renderVideosOnDom();
