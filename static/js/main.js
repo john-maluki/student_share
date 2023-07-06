@@ -1,4 +1,5 @@
-const MAIN_URL = "http://localhost:3000";
+// const MAIN_URL = "http://localhost:3000";
+const MAIN_URL = "https://student-share-api.onrender.com";
 
 let users = [];
 let videos = [];
