@@ -42,15 +42,15 @@ The following have been used on this project:
 
 - Home section
 
-  <img src="./docs/screenshots/home.png" alt="screenshot" />
+  ![home](https://github.com/john-maluki/student_share/assets/40564187/df571f88-6e48-4b71-9805-cf5d43d7aaf4)
 
 - Videos section
 
-  <img src="./docs/screenshots/videos.png" alt="screenshot" />
+  ![videos](https://github.com/john-maluki/student_share/assets/40564187/8ffe45a8-0d4b-4fa5-893c-3a385c2de25f)
 
 - Topics section
 
-  <img src="./docs/screenshots/topics.png" alt="screenshot" />
+  ![topics](https://github.com/john-maluki/student_share/assets/40564187/b599a47e-483b-4ab6-bb33-bd9dd9694da8)
 
 ## Authors
 
